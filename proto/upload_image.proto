@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+message UploadImage {
+    string content_type = 1;
+    string name = 2;
+    bytes image = 3;
+}
+
+message UploadImages {
+    repeated UploadImage images = 1;
+}
+
+message UploadImageResponse {
+    bool error = 1;
+    string message = 2;
+}
+
+// gRPCのServiceが使えないっ...
+//service UploadImageManager {
+//    rpc post (UploadImages) returns (UploadImageResponse) {}
+//}

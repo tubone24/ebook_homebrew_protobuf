@@ -1,0 +1,17 @@
+[package]
+name = "actix_grpc"
+version = "0.1.0"
+authors = ["tubone24 <tubo.yyyuuu@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = "3.1.0"
+actix-rt = "1.1.1"
+actix-protobuf = "0.6.0"
+env_logger = "0.7"
+prost = "0.6.0"
+prost-derive = "0.6.0"
+printpdf = "0.3.2"
+log = "0.4"
