@@ -20,7 +20,7 @@ async def fetch(session):
     name = sys.argv[2]
     image = b""
     with open("image.png", "rb") as f:
-        image = f.read()
+        image = f.read() # どうやらPythonではバイトそのままは使えないらしい https://note.com/npaka/n/n5c3263ad88ff
 
 
     # リクエストを作成する
