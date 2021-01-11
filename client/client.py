@@ -6,6 +6,7 @@ import upload_image_pb2
 
 import asyncio
 import aiohttp
+import binascii
 
 
 def main():
@@ -17,7 +18,10 @@ def main():
 async def fetch(session):
     content_type = sys.argv[1]
     name = sys.argv[2]
-    image = b"aaa"
+    image = b""
+    with open("image.png", "rb") as f:
+        image = f.read()
+
 
     # リクエストを作成する
     upload_image = upload_image_pb2.UploadImage(content_type=content_type, name=name, image=image)
@@ -31,6 +35,7 @@ async def fetch(session):
     async with session.post('http://127.0.0.1:8088/proto', data=sendDataStr,
                             headers={"content-type": "application/protobuf"}) as resp:
         print(resp.status)
+        print(type(image))
         data = await resp.read()
         receiveObj = upload_image_pb2.UploadImageResponse()
         receiveObj.ParseFromString(data)

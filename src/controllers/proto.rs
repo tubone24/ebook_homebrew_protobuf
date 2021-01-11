@@ -1,4 +1,5 @@
-
+use std::fs::File;
+use std::io::{self, Read, Write, BufReader};
 use actix_web::{web, HttpRequest, HttpResponse, Responder};
 
 use actix_protobuf::*;
@@ -32,8 +33,13 @@ pub struct UploadImageResponse {
 }
 
 pub async fn proto(msg: ProtoBuf<UploadImages>) -> impl Responder {
-    println!("contentType: {:?}", msg.images[0].content_type);
-    println!("name: {:?}", msg.images[0].name);
+    for image in &msg.images {
+        println!("contentType: {:?}", image.content_type);
+        println!("name: {:?}", image.name);
+        let mut image_file = File::create(format!("/tmp/ebookhomebrew/{}", image.name))?;
+        image_file.write_all(&image.image).unwrap();
+        image_file.flush()?;
+    }
     let resp_obj = UploadImageResponse {error: false, message: "OK".to_string()};
     HttpResponse::Ok().protobuf(resp_obj)
 }
